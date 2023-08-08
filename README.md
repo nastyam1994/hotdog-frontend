@@ -42,9 +42,7 @@ utils: Utility functions and stylesheets to maintain a consistent design through
 To get started with the HotDog Frontend project, follow these steps:
 
 1. Clone the repository.
-2. Navigate to the project directory.
-3. Install the necessary dependencies.
-4. Run the application.
+2. Open the project in WeChat IDE: Launch WeChat IDE and open the HotDog Frontend project by navigating to the project directory within the IDE.
 
 ## Contributing
 
