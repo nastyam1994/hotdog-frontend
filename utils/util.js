@@ -14,19 +14,19 @@ const formatNumber = n => {
   return n[1] ? n : `0${n}`
 }
 
-function goToShow(i) {
+function goToDog(id) {
     wx.navigateTo({
-      url: `/pages/dogs/show?id=${i}`,
+      url: `/pages/dogs/show?id=${id}`,
     })
 }
 
-function goToBreed(e) {
+function goToBreed(id) {
     wx.navigateTo({
-      url: `/pages/wiki/show?id=${e}`,
+      url: `/pages/wiki/show?id=${id}`,
     })
 }
 
-function goToEvent(event_id) {  
+function goToEvent(event_id) {
   wx.navigateTo({
     url: `/pages/events/show?id=${event_id}`,
   });
