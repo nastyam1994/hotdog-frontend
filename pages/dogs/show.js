@@ -16,8 +16,9 @@ Page({
         const data = e.currentTarget.dataset.id;
         console.log('Data:', data);
         utils.goToBreed(data);
+        // alignment
       },
-      
+
     /**
      * Lifecycle function--Called when page load
      */
@@ -48,6 +49,7 @@ Page({
         })
     },
 
+    // rm dead code
     /**
      * Lifecycle function--Called when page is initially rendered
      */

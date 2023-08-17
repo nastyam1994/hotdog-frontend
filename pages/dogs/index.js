@@ -3,24 +3,28 @@ const utils = require('../../utils/util');
 
 Page({
   data: {
+    // confusing var name - why not "dogs", "dogList", etc?
     pushList: []
   },
 
+  // no-op - rm dead code
   bindViewTap: function () {},
 
 
-  goToShow: function (e) {
+  // confusing method name?
+  goToDog: function (e) {
     const id = e.currentTarget.dataset.dogid;
-    utils.goToShow(id);
+    utils.goToDog(id);
   },
 
+  // formatting - extra space
   onShow() {
 
+    // unused var
     let page = this;
-    console.log("index.js", app.globalData.header)
+    console.log('index.js', app.globalData.header);
 
-    if (typeof this.getTabBar === 'function' &&
-      this.getTabBar()) {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
         selected: 1
       })
@@ -125,9 +129,11 @@ function handleSuccessResponse(res) {
   console.log("POST request successful");
   console.log("Response:", res);
 
+  // res.ok ? (if like web standard fetch)
+  // is this redundant? handle**Success**Response?
   if (res.statusCode === 200 || res.statusCode === 201) {
     const match = res.data;
-    const match_id = match.id;
+    // assignments not necessary - `match.id`.length == `match_id`.length
     const from_dog_id = match.from_dog.id;
     const to_dog_id = match.to_dog.id;
     const to_dog_name = match.to_dog.name;
@@ -135,11 +141,13 @@ function handleSuccessResponse(res) {
 
     console.log("Match status:", match.status);
     if (match.status === "like") {
-      navigateToMutualPage(match_id, from_dog_id, to_dog_id, to_dog_name);
+      navigateToMutualPage(match.id, from_dog_id, to_dog_id, to_dog_name);
     } else {
+      // does this need more error handling?
       console.log("Like is not mutual");
     }
   } else {
+    // can surface more error details to the user?
     showToast('Failed to create match');
   }
 }
@@ -148,14 +156,30 @@ function handleFailureResponse(res) {
   console.log("POST request failed");
   console.log("Error:", res);
 
+  // can surface more error details to the user?
   showToast('Failed to create match');
 }
 
 function navigateToMutualPage(match_id, from_dog_id, to_dog_id, to_dog_name) {
   console.log("Navigating to mutual page: From dog", from_dog_id, "To dog:", to_dog_id);
 
+  // manipulate URLs/query params more safely with `URL`/`URLSearchParams`
+  // https://developer.mozilla.org/en-US/docs/Web/API/URL/URL
+  const url = new URL('/pages/matches/mutual', app.globalData.baseUrl);
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/URLSearchParams
+  url.search = new URLSearchParams({
+    match_id,
+    from_dog_id,
+    to_dog_id,
+    // URLSearchParams are automatically encoded
+    // safe from bad user input such as setting `to_dog_name` to "Fido&secret_admin_mode=true"
+    to_dog_name,
+  });
+
   wx.navigateTo({
-    url: `/pages/matches/mutual?match_id=${match_id}&from_dog_id=${from_dog_id}&to_dog_id=${to_dog_id}&to_dog_name=${to_dog_name}`,
+    // `url.href` is the string representation of the URL object
+    url: url.href,
     success(res) {
       console.log("Navigation success:", res);
     },

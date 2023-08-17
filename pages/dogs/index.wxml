@@ -4,6 +4,7 @@
 
   <!-- Card -->
   <view class="">
+    <!-- maybe a parent w style? -->
     <view class="placeholder-0" style="{{ pushList.length <= 1 ? 'opacity: 0;' : '' }}"></view>
     <view class="placeholder-1" style="{{ pushList.length <= 1 ? 'opacity: 0;' : '' }}"></view>
     <view class="placeholder-2" style="{{ pushList.length <= 1 ? 'opacity: 0;' : '' }}"></view>
@@ -14,4 +15,4 @@
       </mp-swipe-card>
     </block>
   </view>
-</view>  
+</view>
